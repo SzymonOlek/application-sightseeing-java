@@ -1,2 +1,2 @@
 # application-sightseeing-java
-application designed to plan a city sightseeing routeqqqqqq
+application designed to plan a city sightseeing route
