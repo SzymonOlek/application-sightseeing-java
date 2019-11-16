@@ -105,7 +105,7 @@ CREATE TABLE `object` (
   `localization` varchar(30) NOT NULL,
   `object_name` varchar(20) NOT NULL,
   `city_id` int(5) NOT NULL,
-  `decription` text NOT NULL
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
