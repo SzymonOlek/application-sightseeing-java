@@ -5,7 +5,7 @@ BEGIN
 
     SET @user_id = (SELECT MAX(sysuser.user_id) FROM sysuser);
     
-    IF @user_id IS NULL THEN SET @user_id = 0;
+    IF @user_id IS NULL THEN SET @user_id = 1;
     ELSE SET @user_id = @user_id + 1;
     END IF;
     
