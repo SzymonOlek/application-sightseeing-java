@@ -3,7 +3,7 @@ DELIMITER //
 CREATE TRIGGER `AddCity` BEFORE INSERT ON `city`
 FOR EACH ROW BEGIN
 
-SET @text = (SELECT CONCAT(' USUNIETO MIASTO O ID ' , new.city_id,' NAZWIE ',new.city_name));
+SET @text = (SELECT CONCAT(' DODANO MIASTO O ID ' , new.city_id,' NAZWIE ',new.city_name));
 
 
 SET @ID = (SELECT max(logs.log_id)+1 from logs);
