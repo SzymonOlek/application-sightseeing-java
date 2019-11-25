@@ -10,9 +10,9 @@ import javax.persistence.Table;
 @Table(name = "sysuser")
 public class Sysuser {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private Integer user_id;
+	private Integer user_id=5;
 	private String login;
 	private String passwd;
 	private String email;
@@ -21,10 +21,10 @@ public class Sysuser {
 	private String avatar_path;
 	private Integer comment_num;
 	
-	public Integer getId() {
+	public Integer getUser_id() {
 		return user_id;
 	}
-	public void setId(Integer id) {
+	public void setUser_id(Integer id) {
 		this.user_id = id;
 	}
 	public String getLogin() {
