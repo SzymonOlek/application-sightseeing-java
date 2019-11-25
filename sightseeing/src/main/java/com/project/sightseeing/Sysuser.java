@@ -4,13 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "sysuser")
 public class Sysuser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	private Integer id;
+	private Integer user_id;
 	private String login;
 	private String passwd;
 	private String email;
@@ -20,10 +22,10 @@ public class Sysuser {
 	private Integer comment_num;
 	
 	public Integer getId() {
-		return id;
+		return user_id;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		this.user_id = id;
 	}
 	public String getLogin() {
 		return login;

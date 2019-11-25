@@ -18,7 +18,7 @@ public class DbaseController {
 	private SysuserRepository userRepo;
 	
 	@PostMapping(path="/add")
-	public @ResponseBody String addUser(@RequestParam String f_name, @RequestParam String l_name
+	public String addUser(@RequestParam String f_name, @RequestParam String l_name
 			, @RequestParam String login, @RequestParam String passwd, @RequestParam String email
 			, @RequestParam String avatar_path, @RequestParam Integer comment_num) {
 		Sysuser u = new Sysuser();
@@ -29,6 +29,7 @@ public class DbaseController {
 		u.setEmail(email);
 		u.setAvatar_path(avatar_path);
 		u.setComment_num(comment_num);
+		u.setId((int)(userRepo.count()) + 1);
 		
 		userRepo.save(u);
 		return "User saved";
