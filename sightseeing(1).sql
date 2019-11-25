@@ -347,6 +347,8 @@ CREATE TABLE IF NOT EXISTS `sysuser` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+ALTER TABLE sysuser MODIFY user_id INTEGER NOT NULL AUTO_INCREMENT;
+
 --
 -- Tabela Truncate przed wstawieniem `sysuser`
 --
