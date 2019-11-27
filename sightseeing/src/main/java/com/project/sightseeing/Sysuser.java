@@ -24,7 +24,7 @@ public class Sysuser {
 	public Integer getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(Integer id) {
+	public void setUser_id(int id) {
 		this.user_id = id;
 	}
 	public String getLogin() {
