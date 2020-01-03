@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Form</h1>
+    <form action="#" th:action="@{/home}" method="post">
+    	<button type="button" onclick = "window.location.href = 'localhost:8080/sightseeing/home/login'">Login</button>
+    	<button type="button" onclick = "window.location.href = 'localhost:8080/sightseeing/home/regi'"">Rejestracja</button>
+    	<button type="button" onclick = "window.location.href = 'localhost:8080/sightseeing/home/city'">Wybierz miasto</button>
+    </form>
+</body>
+</html>
