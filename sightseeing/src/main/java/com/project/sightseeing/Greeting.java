@@ -20,5 +20,5 @@ public class Greeting {
     public void setContent(String content) {
         this.content = content;
     }
-
+    	//								http://localhost:9999/sightseeing/
 }
