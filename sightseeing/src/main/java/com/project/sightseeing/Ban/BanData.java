@@ -74,8 +74,8 @@ public class BanData {
 	
 	private Ban_type toBan_type(String ban_type) {
 	
-		if ( ban_type.equals(Ban_type.comment_ban.toString())){
-			return Ban_type.comment_ban; 
+		if ( ban_type.equals(Ban_type.coment_ban.toString())){
+			return Ban_type.coment_ban; 
 		}
 		if (ban_type.equals(Ban_type.perma_ban.toString())) {
 			return Ban_type.perma_ban;

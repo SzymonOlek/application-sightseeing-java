@@ -2,15 +2,11 @@ package com.project.sightseeing.Route;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.project.sightseeing.Object.ObjectData;
 
 @Controller
 @RequestMapping(path = "/route")
@@ -19,29 +15,24 @@ public class RouteDataController {
 	RouteDataRepository routeRepo;
 	
 	@PostMapping(path = "/add")
-	public @ResponseBody String addRoute(@ModelAttribute RouteData routeToAdd) {
+	public @ResponseBody String addRoute(@RequestParam Integer city_id, @RequestParam Integer object_1_id, @RequestParam Integer object_2_id
+			, @RequestParam Float distane) {
 		
-//		RouteData r = new RouteData();
+		RouteData r = new RouteData();
 		
-		routeToAdd.setRoute_id((int)routeRepo.count() + 1);
-//		r.setCity_id(city_id);
-//		r.setObject_1_id(object_1_id);
-//		r.setObject_2_id(object_2_id);
-//		r.setDistance(distane);
+		r.setRoute_id((int)routeRepo.count() + 1);
+		r.setCity_id(city_id);
+		r.setObject_1_id(object_1_id);
+		r.setObject_2_id(object_2_id);
+		r.setDistance(distane);
 		
-		routeRepo.save(routeToAdd);
+		routeRepo.save(r);
 		
 		return "Route saved.";
 	}
 	
 	@GetMapping(path = "/all")
-	public String getRoutes(Model model){
-		model.addAttribute("routes", routeRepo.findAll());
-		return "routedata";
-	}
-	@GetMapping(path = "/add")
-	public String addRoutes(Model model){
-		model.addAttribute("route", new RouteData());
-		return "formroute";
+	public @ResponseBody Iterable<RouteData> getRoutes(){
+		return routeRepo.findAll();
 	}
 }
