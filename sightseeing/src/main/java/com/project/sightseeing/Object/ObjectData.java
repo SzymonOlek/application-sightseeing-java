@@ -19,7 +19,7 @@ public class ObjectData {
 	private Integer city_id;
 	
 	public void setObject_id(Integer object_id) {
-		this.city_id = object_id;
+		this.object_id = object_id;
 	}
 	
 	public Integer getObject_id() {
@@ -38,7 +38,7 @@ public class ObjectData {
 		this.object_name = object_name;
 	}
 	
-	public String geyObject_name() {
+	public String getObject_name() {
 		return object_name;
 	}
 	
