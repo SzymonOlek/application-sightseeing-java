@@ -6,8 +6,8 @@
 </head>
 <body>
 	<h1>Result</h1>
-    <p th:text="'id: ' + ${template.id}" />
-    <p th:text="'content: ' + ${template.content}" />
-    <a href="/sightseeing/template">Submit another message</a>
+    <p th:text="'id: ' + ${sysuser.login}" />
+    <p th:text="'content: ' + ${sysuser.email}" />
+    <a href="/sightseeing/user/add">Submit another message</a>
 </body>
 </html>
