@@ -34,7 +34,8 @@
             <td colspan="3"> No cities availlable</td>
         </tr>
         <tr th:each="city : ${cities}">
-        <td><a th:href="'/sightseeing/city/miasto/' + ${city.city_id}"><span th:text="${city.city_name}">  </span></a></td>
+        <td><a th:href="'/sightseeing/city/miasto/' + ${city.city_id}">
+        <button type="button" th:value="${city.city_name}" th:text="${city.city_name}"></button></a></td>
       
             
             <td><span th:text="${city.obj_quan}"> Ilosc obiektów </span></td>

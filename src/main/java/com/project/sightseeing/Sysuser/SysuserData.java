@@ -23,12 +23,12 @@ public class SysuserData {
 	
 	public SysuserData() {
 		user_id = 0;
-		login = " ";
-		passwd = " ";
-		email = " ";
-		f_name = " ";
-		l_name = " ";
-		avatar_path = " ";
+		login = "";
+		passwd = "";
+		email = "";
+		f_name = "";
+		l_name = "";
+		avatar_path = "";
 		comment_num = 0;
 	}
 	
