@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Komentarze</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th> ID komentarza </th>
+            <th> ID użytkownika</th>
+			<th> ID obiektu</th>
+			<th> Komentarz</th>
+			<th> Data </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${comments.empty}">
+            <td colspan="5"> No comments added</td>
+        </tr>
+        <tr th:each="comment : ${comments}">
+            <td><span th:text="${comment.commentary_id}">ID komentarza </span></td>
+            <td><span th:text="${comment.user_id}">ID użytkownika </span></td>
+			<td><span th:text="${comment.object_id}"> ID obiektu</span></td>
+			<td><span th:text="${comment.contents}">Komentarz </span></td>
+			<td><span th:text="${comment.comment_date}">Data </span></td>
+        </tr>
+    </tbody>
+</table>
+<a href=http://localhost:9999/sightseeing>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>
