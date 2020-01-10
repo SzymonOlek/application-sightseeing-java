@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.project.sightseeing;
 
 public class Greeting {
@@ -21,4 +22,29 @@ public class Greeting {
         this.content = content;
     }
 
+=======
+package com.project.sightseeing;
+
+public class Greeting {
+
+    private long id;
+    private String content;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    	//								http://localhost:9999/sightseeing/
+>>>>>>> Stashed changes
 }

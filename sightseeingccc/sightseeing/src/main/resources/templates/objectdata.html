@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Obiekty</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th> Nazwa obiektu </th>
+            <th> Lokalizacja </th>
+			<th> ID obiektu </th>
+			<th> Opis </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${objects.empty}">
+            <td colspan="4"> No objects added</td>
+        </tr>
+        <tr th:each="obj : ${objects}">
+            <td><span th:text="${obj.object_name}"> Nazwa obiektu </span></td>
+            <td><span th:text="${obj.localization}"> Lokalizacja </span></td>
+			<td><span th:text="${obj.object_id}"> ID obiektu </span></td>
+			<td><span th:text="${obj.description}">Opis </span></td>
+        </tr>
+    </tbody>
+</table>
+<a href=http://localhost:9999/sightseeing>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>

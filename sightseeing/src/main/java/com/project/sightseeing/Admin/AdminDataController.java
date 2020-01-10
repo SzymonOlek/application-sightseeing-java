@@ -1,5 +1,10 @@
 package com.project.sightseeing.Admin;
 
+<<<<<<< Updated upstream
+=======
+import java.util.Map;
+
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,14 +14,65 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+<<<<<<< Updated upstream
 
 import com.project.sightseeing.Sysuser.SysuserData;
+=======
+import org.springframework.web.context.request.RequestContextHolder;
+
+import com.project.sightseeing.SightseeingApplication;
+import com.project.sightseeing.Ban.BanDataRepository;
+import com.project.sightseeing.Sysuser.Sysuser;
+import com.project.sightseeing.Sysuser.SysuserData;
+import com.project.sightseeing.Sysuser.SysuserDataRepository;
+import com.project.sightseeing.User.User;
+>>>>>>> Stashed changes
 
 @Controller
 @RequestMapping(path = "/admin")
 public class AdminDataController {
 	@Autowired
 	private AdminDataRepository adminRepo;
+<<<<<<< Updated upstream
+=======
+	
+	@Autowired
+	SysuserDataRepository userRepo;
+	@Autowired
+	BanDataRepository banRepo;
+	
+	@GetMapping(path = "/acc")
+	public String account(Model model) {
+		
+		String session = RequestContextHolder.currentRequestAttributes().getSessionId();
+		Admin s;
+		for(Map.Entry<String , User> entry : SightseeingApplication.loggedInUsers.entrySet()) {
+			if (entry.getKey().equals(session)) {
+				s = (Admin)entry.getValue();
+				model.addAttribute("admin", s.getAdminData());
+				return "adminAcc";
+				}
+			}
+		return "blad";
+	}
+	
+	@GetMapping(path = "/del")
+	public String delete() {
+		return "delForm";
+	}
+	@GetMapping(path = "/new")
+	public String addObj() {
+		return "addForm";
+	}
+	
+	@GetMapping(path = "/ban")
+	public String banUser(Model model) {
+		model.addAttribute("sysusers", userRepo.findAll());
+		model.addAttribute("bans", banRepo);
+		return "adminBan";
+	}
+	
+>>>>>>> Stashed changes
 	@PostMapping(path = "/add")
 	public @ResponseBody String addAdmin(@ModelAttribute AdminData adminToAdd) {
 		

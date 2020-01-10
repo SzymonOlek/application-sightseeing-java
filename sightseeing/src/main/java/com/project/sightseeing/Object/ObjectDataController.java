@@ -1,10 +1,19 @@
 package com.project.sightseeing.Object;
 
+<<<<<<< Updated upstream
+=======
+import java.util.ArrayList;
+
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+<<<<<<< Updated upstream
+=======
+import org.springframework.web.bind.annotation.PathVariable;
+>>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +44,26 @@ public class ObjectDataController {
 		return "Object saved.";
 	}
 	
+<<<<<<< Updated upstream
+=======
+	
+	@GetMapping(path = "/obiekt/{name}")
+	public String ChooseObject(@PathVariable("name") String name, Model model){
+		
+		int val = Integer.parseInt(name);
+		ArrayList<ObjectData> objects = new ArrayList<ObjectData>();
+		
+//		
+		for(ObjectData entry : objRepo.findAll()) {
+			if(entry.getCity_id() == val) {
+				objects.add(entry);
+			}
+		}
+		model.addAttribute("obiekty", objects);
+		return  "TestPage";
+	}
+	
+>>>>>>> Stashed changes
 	@GetMapping(path = "/all")
 	public String getObjects(Model model){
 		

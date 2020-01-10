@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+    
+    
+</head>
+<body>
+	<h1>Dodawanie Banu</h1>
+    <form action="#" th:action="@{/ban/banSpecifiedUser}" th:object="${ban}" method="post">
+
+        <p>ID Admina: <input type="number" th:field="*{admin_id}" readonly/></p>
+        <p>ID użytkownika: <input type="number" th:field="*{user_id}" readonly/></p>
+    	<p>Od kiedy: <input type="date" th:field="*{date_since}" /></p>   
+		<p>Do kiedy: <input type="date" th:field="*{date_by}" /></p>
+		<p>
+		Rodzaj banu :
+		<select th:field="*{ban_type}">
+		<option value="comment_ban">comment_ban</option>
+		<option value="perma_ban">perma_ban</option>
+		</select>
+		
+		</p>
+		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+	<a href=http://localhost:9999/sightseeing>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>

@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream:sightseeing/src/main/java/com/project/sightseeing/Sysuser.java
 <<<<<<< Updated upstream
 package com.project.sightseeing;
+=======
+package com.project.sightseeing.Sysuser;
+>>>>>>> Stashed changes:sightseeing/src/main/java/com/project/sightseeing/Sysuser/SysuserData.java
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +13,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sysuser")
-public class Sysuser {
+public class SysuserData {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	private Integer user_id=5;
+	private Integer user_id;
 	private String login;
 	private String passwd;
 	private String email;
@@ -21,6 +25,17 @@ public class Sysuser {
 	private String l_name;
 	private String avatar_path;
 	private Integer comment_num;
+	
+	public SysuserData() {
+		user_id = 0;
+		login = " ";
+		passwd = " ";
+		email = " ";
+		f_name = " ";
+		l_name = " ";
+		avatar_path = " ";
+		comment_num = 0;
+	}
 	
 	public Integer getUser_id() {
 		return user_id;
