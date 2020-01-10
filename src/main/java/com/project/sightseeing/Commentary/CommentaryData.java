@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class CommentaryData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer commentary_id;
+	private Integer comment_id;
 	private Integer user_id;
 	private Integer object_id;
 	private String contents;
@@ -22,11 +22,11 @@ public class CommentaryData {
 	private Rate rate;
 	
 	public void setCommentary_id(Integer commentary_id) {
-		this.commentary_id = commentary_id;
+		this.comment_id = commentary_id;
 	}
 	
 	public Integer getCommentary_id() {
-		return commentary_id;
+		return comment_id;
 	}
 	
 	public void setUser_id(Integer user_id) {

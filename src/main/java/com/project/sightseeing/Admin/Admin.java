@@ -1,10 +1,14 @@
 package com.project.sightseeing.Admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.project.sightseeing.User.*;
 
 public class Admin extends User{
 	
 	private AdminData adminData;
+	
+	
 	
 	public Admin() {
 		this.adminData = null;

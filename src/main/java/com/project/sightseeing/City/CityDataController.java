@@ -58,7 +58,7 @@ private ObjectDataRepository objectRepo;
 		model.addAttribute("cid", cid);
 		return "citysel";
 	}
-
+	
 	@GetMapping(path = "/miasto/{name}")
 	public String ChooseCity(@PathVariable("name") String name, Model model){
 		
@@ -72,7 +72,7 @@ private ObjectDataRepository objectRepo;
 			}
 		}
 		model.addAttribute("obiekty", objects);
-		return  "TestPage";
+		return  "objSel";
 	}
 	
 	

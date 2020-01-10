@@ -2,10 +2,14 @@ package com.project.sightseeing.User;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.project.sightseeing.SightseeingApplication;
 import com.project.sightseeing.Admin.Admin;
+import com.project.sightseeing.Ban.BanData;
+import com.project.sightseeing.Ban.BanDataRepository;
+import com.project.sightseeing.Ban.Ban_type;
 import com.project.sightseeing.Sysuser.Sysuser;
 
 public class User {
@@ -13,14 +17,12 @@ public class User {
 	private String login;
 	private String passwd;
 	
-	
-	
 	public User() {
 		super();
 		this.login = null;
 		this.passwd = null;
 	}
-
+	
 	public String isLogged() {
 		
 		String session = RequestContextHolder.currentRequestAttributes().getSessionId();
@@ -35,6 +37,17 @@ public class User {
 			}
 		}
 		return "g";
+	}
+	
+	public User getUser() {
+		String session = RequestContextHolder.currentRequestAttributes().getSessionId();
+		
+		for (Map.Entry<String, User> entry : SightseeingApplication.loggedInUsers.entrySet()) {
+			if (entry.getKey().equals(session)) {
+				return entry.getValue();
+			}
+		}
+		return null;
 	}
 	
 	public void setLogin(String login) {
@@ -52,19 +65,5 @@ public class User {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
-	
-	
-	public User getUser() {
-        String session = RequestContextHolder.currentRequestAttributes().getSessionId();
-
-        for (Map.Entry<String, User> entry : SightseeingApplication.loggedInUsers.entrySet()) {
-            if (entry.getKey().equals(session)) {
-                return entry.getValue();
-            }
-        }
-        return null;
-    }
-	
-	
 	
 }

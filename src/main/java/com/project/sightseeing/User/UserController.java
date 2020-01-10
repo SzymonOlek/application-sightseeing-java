@@ -22,6 +22,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import com.project.sightseeing.Admin.Admin;
 import com.project.sightseeing.Admin.AdminData;
 import com.project.sightseeing.Admin.AdminDataRepository;
+import com.project.sightseeing.Ban.BanData;
+import com.project.sightseeing.Ban.BanDataRepository;
+import com.project.sightseeing.Ban.Ban_type;
 import com.project.sightseeing.Sysuser.Sysuser;
 import com.project.sightseeing.Sysuser.SysuserData;
 import com.project.sightseeing.Sysuser.SysuserDataRepository;
@@ -31,12 +34,12 @@ import com.project.sightseeing.SightseeingApplication;
 @RequestMapping(path = "/home")
 public class UserController {
 	
-	//public static Map<String , User> loggedInUsers = new HashMap<String, User>();
 	@Autowired
 	AdminDataRepository adminRepo;
 	@Autowired
 	SysuserDataRepository userRepo;
-
+	@Autowired
+	private BanDataRepository banRepo;
 	
 	@GetMapping(path = "/logout")
 	public String logout() {
@@ -71,9 +74,7 @@ public class UserController {
 	
 	@PostMapping(path = "/login")
 	public String login(@ModelAttribute User u) {
-		
 		User a = new User();
-		
 		for(AdminData i : adminRepo.findAll()) {
 			if (i.getLogin().equals(u.getLogin()) && i.getPasswd().equals(u.getPasswd())) {
 				a = new Admin(i);
@@ -81,15 +82,18 @@ public class UserController {
 				return "loginSucc";
 			}
 		}
-		
 		for(SysuserData i : userRepo.findAll()) {
+			
 			if (i.getLogin().equals(u.getLogin()) && i.getPasswd().equals(u.getPasswd())) {
 				a = new Sysuser(i);
+				int uid = i.getUser_id();
+				BanData bd = banById(uid,Ban_type.perma_ban );
+				if(bd != null)
+					return "banned";
 				SightseeingApplication.loggedInUsers.put(RequestContextHolder.currentRequestAttributes().getSessionId(), a);
 				return "loginSucc";
 			}
 		}
-		
 		return "loginFail";
 	}
 
@@ -109,10 +113,14 @@ public class UserController {
 		
 		return u;
 	}
-
-
-
-
-
-
+	public BanData banById(int id, Ban_type bt) {
+		BanData a = new BanData();
+		for(BanData entry : banRepo.findAll()) {
+			if(entry.getUser_id() == id && entry.getBan_type() == bt) {
+				a = entry;
+				return a;
+			}
+		}
+		return null;
+	}
 }

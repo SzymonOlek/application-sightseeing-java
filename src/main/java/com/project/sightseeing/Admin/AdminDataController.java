@@ -67,7 +67,7 @@ public class AdminDataController {
 		
 //		AdminData a = new AdminData();
 		
-		adminToAdd.setAdmin_id((int)adminRepo.count() + 1);
+//		adminToAdd.setAdmin_id((int)adminRepo.count());
 //		a.setF_name(f_name);
 //		a.setL_name(l_name);
 //		a.setEmail(email);

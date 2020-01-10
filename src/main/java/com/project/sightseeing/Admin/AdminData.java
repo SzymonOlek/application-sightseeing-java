@@ -11,7 +11,6 @@ import javax.persistence.Table;
 public class AdminData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer admin_id;
 	private String f_name;
 	private String l_name;

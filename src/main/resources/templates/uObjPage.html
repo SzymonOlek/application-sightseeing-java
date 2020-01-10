@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja - obiekt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body th:variable="${obj}">
+	<h1><span th:text="*{obj.object_name}"></span></h1>
+ <table>
+    <thead>
+        <tr></tr>
+    </thead>
+    <tbody>
+        <tr>
+        	<td>Lokalizacja: </td>
+        	<td><span th:text="*{obj.localization}"></span></td>
+        </tr>
+        <tr>
+        	<td><span th:text="*{obj.description}"></span></td>
+        </tr>
+    </tbody>
+</table>
+<table >
+	<thead>
+		<tr>Komentarze:</tr>
+		<tr>
+			<td>Nick</td>
+			<td>Tresc</td>
+			<td>Ocena (*/5)</td>
+			<td>Data</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="comment : ${coment}">
+            <td><span th:text="${comment.user_id}">Nick </span></td>
+			<td><span th:text="${comment.contents}">Tresc </span></td>
+			<td>
+				<div th:switch="${comment.rate}">
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).one}">1</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).two}">2</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).three}">3</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).four}">4</span>
+     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).five}">5</span>
+				</div>
+			</td>
+			<td><span th:text="${comment.comment_date}">Data </span></td>
+			
+        </tr>
+		
+	</tbody>
+</table>
+<a th:variable="${usrid}" th:href="'http://localhost:9999/sightseeing/comm/uadd/' + ${obj.object_id} +'/'+ ${usrid}" >Dodaj komentarz</a>
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+</body>
+</html>
