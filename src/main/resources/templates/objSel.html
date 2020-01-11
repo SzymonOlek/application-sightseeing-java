@@ -33,7 +33,7 @@
         <tr th:each="object : ${obiekty}">
         	<td>
         		<a th:href="'/sightseeing/object/object/' + ${object.object_id}">
-        			<button>
+        			<button type="button">
         				<span th:text="${object.object_name}">
         				</span>
         			</button>
@@ -47,8 +47,13 @@
     
 </table>
     </form>
-	<a href=http://localhost:9999/sightseeing>
-	<button>Powrót</button>
+    
+    	<a href=http://localhost:9999/sightseeing/city/sel>
+	<button>Powrot</button>
 	</a>
+	<a href=http://localhost:9999/sightseeing>
+	<button>Strona Glowna</button>
+	</a>
+
 </body>
 </html>

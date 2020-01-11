@@ -20,6 +20,8 @@ import com.project.sightseeing.Admin.AdminDataRepository;
 import com.project.sightseeing.City.CityData;
 import com.project.sightseeing.Commentary.CommentaryData;
 import com.project.sightseeing.Commentary.CommentaryDataRepository;
+import com.project.sightseeing.Photo.PhotoData;
+import com.project.sightseeing.Photo.PhotoDataRepository;
 import com.project.sightseeing.Sysuser.Sysuser;
 import com.project.sightseeing.Sysuser.SysuserData;
 import com.project.sightseeing.Sysuser.SysuserDataRepository;
@@ -36,6 +38,8 @@ public class ObjectDataController {
 	private AdminDataRepository adminRepo;
 	@Autowired
 	private SysuserDataRepository userRepo;
+	@Autowired
+	private PhotoDataRepository photoRepo;
 	
 	
 	@PostMapping(path = "/add")
@@ -107,6 +111,18 @@ public class ObjectDataController {
 				return "uObjPage";
 			}
 		}
+		
+		
+		ArrayList<PhotoData> photos = new ArrayList<PhotoData>();
+		
+		for(PhotoData p : photoRepo.findAll()) {
+			if(p.getObject_id().equals(val)) {
+				photos.add(p);
+			}
+		}
+		
+		model.addAttribute("photos", photos);
+		
 			return  "objPage";
 	}
 	

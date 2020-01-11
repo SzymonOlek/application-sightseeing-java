@@ -3,6 +3,33 @@
 <head>
     <title>Atrakcja - obiekt</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleForGallery.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/lightbox.min.css}"/>
+    <script th:src="@{/js/lightbox-plus-jquery.min.js}"></script>
+    
+    <style type="text/css">
+    .column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+    .gallery{
+	margin: 10px 50px;
+	
+	float: left;
+	
+	
+}
+.gallery::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+    </style>
+    
+    
 </head>
 <body th:variable="${obj}">
 	<h1><span th:text="*{obj.object_name}"></span></h1>
@@ -20,6 +47,15 @@
         </tr>
     </tbody>
 </table>
+<h1 class="napis"> Galeria</h1>
+ <span th:if="${photos.empty}">   BRAK ZDJEC  </span>
+<div class="gallery" >
+	<span th:each="photo : ${photos}">
+			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="${obj.object_name}"><img th:src="'/sightseeing//img/' + ${photo.photo_path}"/></a>
+	</span>
+
+</div>
+
 <table>
 	<thead>
 		<tr>Komentarze:</tr>
@@ -48,7 +84,10 @@
 		
 	</tbody>
 </table>
-
+    <a th:href="'http://localhost:9999/sightseeing/city/miasto/' + ${obj.city_id}">
+	<button>Powrót</button>
+	</a>
 <button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+
 </body>
 </html>
