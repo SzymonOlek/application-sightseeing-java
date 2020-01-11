@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.sightseeing.Admin.Admin;
 import com.project.sightseeing.Admin.AdminData;
@@ -40,6 +41,17 @@ public class UserController {
 	SysuserDataRepository userRepo;
 	@Autowired
 	private BanDataRepository banRepo;
+	
+	@GetMapping(path = "/acc")
+	public RedirectView acc(){
+		String lg = new User().isLogged();
+		
+		if (lg.equals("a")) {
+			return new RedirectView("http://localhost:9999/sightseeing/admin/user");
+		} else  {
+			return new RedirectView("http://localhost:9999/sightseeing/user/acc");
+		}
+	}
 	
 	@GetMapping(path = "/logout")
 	public String logout() {

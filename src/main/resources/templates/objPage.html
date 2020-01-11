@@ -27,8 +27,19 @@
   clear: both;
   display: table;
 }
-    </style>
+.comments, .comm{
+max-width: 1200px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+    .alert{
+    max-width: 30px;
+    max-height: 30px;
     
+    }
+
+    </style>
     
 </head>
 <body th:variable="${obj}">
@@ -56,21 +67,24 @@
 
 </div>
 
-<table>
+<table class="comments">
 	<thead>
-		<tr>Komentarze:</tr>
+		<tr> <h1> Komentarze: </h1> </tr>
 		<tr>
-			<td>Nick</td>
+			<td>ID uzytkownika</td>
 			<td>Tresc</td>
 			<td>Ocena (*/5)</td>
 			<td>Data</td>
 		</tr>
 	</thead>
+	
 	<tbody>
+	
 		<tr th:each="comment : ${coment}">
-            <td><span th:text="${comment.user_id}">Nick </span></td>
-			<td><span th:text="${comment.contents}">Tresc </span></td>
-			<td>
+		
+            <td class="comm"><span th:text="${comment.user_id}">ID uzytkownika </span></td>
+			<td class="comm"><span th:text="${comment.contents}">Tresc </span></td>
+			<td class="comm">
 				<div th:switch="${comment.rate}">
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).one}">1</span>
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).two}">2</span>
@@ -79,15 +93,23 @@
      				<span th:case="${T(com.project.sightseeing.Commentary.Rate).five}">5</span>
 				</div>
 			</td>
-			<td><span th:text="${comment.comment_date}">Data </span></td>
+			<td class="comm"><span th:text="${comment.comment_date}">Data </span></td>
+			
+			<td><img class="alert" id="alert" src="/sightseeing/img/alert11.png" onclick="this.src='/sightseeing/img/alert.jpg'"></td>
+			
+			
         </tr>
 		
 	</tbody>
+	
 </table>
+<span th:if="${coment.empty}">   BRAK KOMENTARZY  </span>
     <a th:href="'http://localhost:9999/sightseeing/city/miasto/' + ${obj.city_id}">
 	<button>Powrót</button>
 	</a>
 <button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+
+
 
 </body>
 </html>

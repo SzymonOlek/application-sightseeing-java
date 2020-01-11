@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+<form action="#"  th:action="'http://localhost:9999/sightseeing/admin/objdelconf/' + ${cid} + '/' + ${cid}"  method="post">
+	<h1>Czy na pewno chcesz usunąć obiekt?</h1>
+ 
+<button type="submit" >Tak</button>
+
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/admin/del'">Nie</button>
+</form>
+</body>
+</html>

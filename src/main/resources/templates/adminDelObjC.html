@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Wybierz miasto:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th> Nazwa miasta </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${cities.empty}">
+            <td colspan="5"> No cities added </td>
+        </tr>
+        <tr th:each="city : ${cities}">
+            <td><span th:text="${city.city_name}"> Nazwa miasta </span></td>
+            <td><a th:href="'http://localhost:9999/sightseeing/admin/objSh/' + ${city.city_id}">Wybierz</a>
+        </tr>
+    </tbody>
+</table>
+
+
+<a href=http://localhost:9999/sightseeing/admin/del>
+	<button>Powrót</button>
+	</a>
+<a href=http://localhost:9999/sightseeing>
+	<button>Strona główna</button>
+	</a>
+
+
+</body>
+</html>

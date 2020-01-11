@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.sightseeing.Ban.BanData;
 import com.project.sightseeing.Ban.BanDataRepository;
@@ -34,7 +35,7 @@ public class CommentaryDataController {
 	private SysuserDataRepository userRepo;
 	
 	@PostMapping(path = "/add/{oid}/{uid}")
-	public String addCommentary(@PathVariable("oid") String oid, @PathVariable("uid") String uid,@ModelAttribute CommentaryData commentToAdd, Model model) {
+	public RedirectView addCommentary(@PathVariable("oid") String oid, @PathVariable("uid") String uid,@ModelAttribute CommentaryData commentToAdd, Model model) {
 		int objId = Integer.parseInt(oid);
 		int usrId = Integer.parseInt(uid);
 		String path = "http://localhost:9999/sightseeing/object/object/" + oid;
@@ -49,7 +50,7 @@ public class CommentaryDataController {
 		commentToAdd.setComment_date(dtf.format(now));
 		comRepo.save(commentToAdd);
 		
-		return "commSaved";
+		return new RedirectView(path);
 	}
 	
 	@GetMapping(path = "/uadd/{oid}/{uid}")

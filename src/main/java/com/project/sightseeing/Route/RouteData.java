@@ -14,7 +14,7 @@ public class RouteData {
 	private Integer route_id;
 	private Integer object_1_id;
 	private Integer object_2_id;
-	private Float distance;
+	private Integer distance;
 	private Integer city_id;
 	
 	public void setRoute_id(Integer route_id) {
@@ -41,11 +41,11 @@ public class RouteData {
 		return object_2_id;
 	}
 	
-	public void setDistance(Float distane) {
+	public void setDistance(Integer distane) {
 		this.distance = distane;
 	}
 	
-	public Float getDistance() {
+	public Integer getDistance() {
 		return distance;
 	}
 	

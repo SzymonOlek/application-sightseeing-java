@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.sightseeing.Admin.Admin;
 import com.project.sightseeing.Admin.AdminData;
 import com.project.sightseeing.Admin.AdminDataRepository;
 import com.project.sightseeing.City.CityData;
+import com.project.sightseeing.City.CityDataRepository;
 import com.project.sightseeing.Commentary.CommentaryData;
 import com.project.sightseeing.Commentary.CommentaryDataRepository;
 import com.project.sightseeing.Photo.PhotoData;
@@ -39,14 +41,42 @@ public class ObjectDataController {
 	@Autowired
 	private SysuserDataRepository userRepo;
 	@Autowired
+	CityDataRepository cityRepo;
+	@Autowired
 	private PhotoDataRepository photoRepo;
 	
 	
-	@PostMapping(path = "/add")
-	public @ResponseBody String addObject(@ModelAttribute ObjectData objectToAdd) {
-		objectToAdd.setObject_id((int)objRepo.count() + 1);		
-		objRepo.save(objectToAdd);
-		return "Object saved.";
+	@GetMapping(path = "/addCitSh")
+	public String addCS(Model model) {
+		model.addAttribute("cities", cityRepo.findAll());
+		return "objAddCS";
+	}
+	
+	@GetMapping(path = "/add/{cid}")
+	public String addObjects(Model model,@PathVariable("cid") String cid){
+		model.addAttribute("cid",Integer.parseInt(cid));
+		model.addAttribute("object", new ObjectData());
+		
+		return "formobject";
+	}
+	
+	@PostMapping(path = "/add/{cid}")
+	public RedirectView addObject(@ModelAttribute ObjectData object,@PathVariable("cid") String cid) {
+		int id = Integer.parseInt(cid);
+		object.setObject_id((int)objRepo.count() + 1);	
+		object.setCity_id(id);
+		
+		System.out.println(object.getObject_name());
+		objRepo.save(object);
+		
+		for(CityData cd : cityRepo.findAll()) {
+			if(cd.getCity_id() == id) {
+				cd.setObj_quan(cd.getObj_quan() + 1);
+				cityRepo.save(cd);
+			}
+		}
+		
+		return new RedirectView("http://localhost:9999/sightseeing/admin/new");
 	}
 	
 	
@@ -87,20 +117,20 @@ public class ObjectDataController {
 		for(CommentaryData entry : comentRepo.findAll()) {
 			if(entry.getObject_id() == val) {
 				cd.add(entry);
-				if ( id > 0 && id < 1000) {
+				if ( entry.getUser_id() > 0) {
 					id = entry.getUser_id();
 					nicks.add(ufindById(id).getLogin());
 				}
 			}
 		}
-		
+		id = -1;
 		for(ObjectData entry : objRepo.findAll()) {
 			if(entry.getObject_id() == val) {
 				obj = entry;
 			}
 		}
 		
-		//model.addAttribute("nicks", nicks);
+		model.addAttribute("nicks", nicks.toArray());
 		model.addAttribute("coment",cd);
 		model.addAttribute("obj", obj);
 		ArrayList<PhotoData> photos = new ArrayList<PhotoData>();
@@ -112,6 +142,8 @@ public class ObjectDataController {
 		}
 		
 		model.addAttribute("photos", photos);
+		
+		
 		if(su != null) {
 			if (su instanceof Sysuser) {
 				user = ((Sysuser)su).getSysuserData();
@@ -120,10 +152,6 @@ public class ObjectDataController {
 				return "uObjPage";
 			}
 		}
-		
-		
-
-		
 			return  "objPage";
 	}
 	
@@ -134,13 +162,5 @@ public class ObjectDataController {
 		
 		return "objectdata";
 	}
-	
-	@GetMapping(path = "/add")
-	public String addObjects(Model model){
-		
-		model.addAttribute("object", new ObjectData());
-		
-		return "formobject";
-	}
-	
+
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Usuń Obiekt:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th> Nazwa obiektu </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${objs.empty}">
+            <td colspan="5"> No cities added </td>
+        </tr>
+        <tr th:each="object : ${objs}">
+            <td><span th:text="${object.object_name}"> Nazwa obiektu </span></td>
+            <td><a th:href="'http://localhost:9999/sightseeing/admin/objdelconf/' + ${object.object_id} + '/' + ${object.city_id}">Usuń</a>
+        </tr>
+    </tbody>
+</table>
+
+
+<a href=http://localhost:9999/sightseeing/admin/del>
+	<button>Powrót</button>
+	</a>
+<a href=http://localhost:9999/sightseeing>
+	<button>Strona główna</button>
+	</a>
+
+
+</body>
+</html>

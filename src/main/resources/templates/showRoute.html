@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Proponowana trasa</h1>
+    <form action="#"  th:action="@{/object/sel}"  method="post">
+
+        
+<table>
+    <thead>
+        <tr>
+        	<th> No. </th>
+            <th> Nazwa obiektu </th>
+            <th> Adres </th>
+        </tr>
+    </thead>
+
+    <tbody >
+    <tr th:if="${objects.empty}">
+            <td colspan="3"> No objects available</td>
+        </tr>
+        <tr th:each="object, id : ${objects}">
+        	<td>
+         		<span th:text="${id.index + 1}"></span>
+         	</td>
+        	<td>
+        		<a th:href="'/sightseeing/object/object/' + ${object.object_id}">
+        			
+        				<span th:text="${object.object_name}">
+        				</span>
+        			
+        		</a>
+        	</td>
+         	<td>
+         		<span th:text=${object.localization}></span>
+         	</td>
+        </tr>
+    </tbody>
+    
+</table>
+    </form>
+	<a href=http://localhost:9999/sightseeing/home>
+	<button>Strona główna</button>
+	</a>
+</body>
+</html>

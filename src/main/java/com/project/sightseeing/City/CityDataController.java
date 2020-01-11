@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.sightseeing.Sysuser.SysuserData;
 
@@ -37,16 +38,17 @@ private ObjectDataRepository objectRepo;
 		return "formcity";
 	}
 	@PostMapping(path = "/add")
-	public @ResponseBody String addCity(@ModelAttribute CityData cityToAdd) {
+	public RedirectView addCity(@ModelAttribute CityData cityToAdd) {
 //		CityData c = new CityData();
 		
 		cityToAdd.setCity_id((int)cityRepo.count() + 1);
+		cityToAdd.setObj_quan(0);
 //		c.setCity_name(city_name);
 //		c.setObj_quan(obj_quan);
 		
 		cityRepo.save(cityToAdd);
 		
-		return "Citysaved.";
+		return new RedirectView("http://localhost:9999/sightseeing/home");
 		
 	} 
 
@@ -71,6 +73,7 @@ private ObjectDataRepository objectRepo;
 				objects.add(entry);
 			}
 		}
+		model.addAttribute("cid", val);
 		model.addAttribute("obiekty", objects);
 		return  "objSel";
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.project.sightseeing.SightseeingApplication;
 import com.project.sightseeing.Template;
@@ -21,11 +22,49 @@ import com.project.sightseeing.User.User;
 @Controller
 @RequestMapping(path="/user")
 public class SysuserDataController {
-@Autowired
-	
+
+	@Autowired
 	private SysuserDataRepository userRepo;
 	
 
+	@GetMapping(path="/change")
+	public String accChange(Model model) {
+		String session = RequestContextHolder.currentRequestAttributes().getSessionId();
+		Sysuser s;
+		for(Map.Entry<String , User> entry : SightseeingApplication.loggedInUsers.entrySet()) {
+			if (entry.getKey().equals(session)) {
+				s = (Sysuser)entry.getValue();
+				model.addAttribute("user", s.getSysuserData());
+				}
+			}
+		return "formUserChange";
+	}
+
+	@PostMapping(path = "/change")
+	public RedirectView accCh(@ModelAttribute SysuserData sd) {
+		
+		String session = RequestContextHolder.currentRequestAttributes().getSessionId();
+		Sysuser s = new Sysuser();
+		SysuserData nData = new SysuserData();
+		for(Map.Entry<String , User> entry : SightseeingApplication.loggedInUsers.entrySet()) {
+			if (entry.getKey().equals(session)) {
+				s = (Sysuser)entry.getValue();
+				}
+			}
+		
+		nData = s.getSysuserData();
+		nData.setF_name(sd.getF_name());
+		nData.setL_name(sd.getL_name());
+		nData.setLogin(sd.getLogin());
+		nData.setPasswd(sd.getPasswd());
+		nData.setPasswd(sd.getPasswd());
+		
+		userRepo.save(nData);
+		
+		
+		return new RedirectView("http://localhost:9999/sightseeing/user/acc");
+	}
+	
 	@GetMapping(path = "acc")
 	public String account(Model model) {
 		
