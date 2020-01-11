@@ -103,6 +103,15 @@ public class ObjectDataController {
 		//model.addAttribute("nicks", nicks);
 		model.addAttribute("coment",cd);
 		model.addAttribute("obj", obj);
+		ArrayList<PhotoData> photos = new ArrayList<PhotoData>();
+		
+		for(PhotoData p : photoRepo.findAll()) {
+			if(p.getObject_id().equals(val)) {
+				photos.add(p);
+			}
+		}
+		
+		model.addAttribute("photos", photos);
 		if(su != null) {
 			if (su instanceof Sysuser) {
 				user = ((Sysuser)su).getSysuserData();
@@ -113,15 +122,7 @@ public class ObjectDataController {
 		}
 		
 		
-		ArrayList<PhotoData> photos = new ArrayList<PhotoData>();
-		
-		for(PhotoData p : photoRepo.findAll()) {
-			if(p.getObject_id().equals(val)) {
-				photos.add(p);
-			}
-		}
-		
-		model.addAttribute("photos", photos);
+
 		
 			return  "objPage";
 	}
