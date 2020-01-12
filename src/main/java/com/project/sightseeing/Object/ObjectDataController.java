@@ -1,6 +1,7 @@
 package com.project.sightseeing.Object;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.dom4j.util.UserDataAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.project.sightseeing.City.CityData;
 import com.project.sightseeing.City.CityDataRepository;
 import com.project.sightseeing.Commentary.CommentaryData;
 import com.project.sightseeing.Commentary.CommentaryDataRepository;
+import com.project.sightseeing.Others.Values;
 import com.project.sightseeing.Photo.PhotoData;
 import com.project.sightseeing.Photo.PhotoDataRepository;
 import com.project.sightseeing.Sysuser.Sysuser;
@@ -162,5 +164,51 @@ public class ObjectDataController {
 		
 		return "objectdata";
 	}
+	
+	
+	@GetMapping(path = "/setDistance/{cid}/{oid}")
+	public String setDistance(@PathVariable("cid") String cid,@PathVariable("oid") String oid,Model model) {
+		int idCity = Integer.parseInt(cid);
+		int idObject = Integer.parseInt(oid);
+
+		ArrayList<ObjectData> otherObjectsInCity= new ArrayList<ObjectData>();
+		ArrayList<Values> distanceToOtherObj= new ArrayList<Values>();
+		WraperInteger arrayDist = new WraperInteger();
+		for(ObjectData p : objRepo.findAll()) {
+			if(p.getCity_id().equals(idCity)) {
+				arrayDist.addObj(p);
+				arrayDist.addValues(new Values());
+			}
+		}	
+		
+		model.addAttribute("distance", arrayDist);
+
+		
+		return "setDistance";
+	}
+	
+	@PostMapping(path = "/setDistance/{cid}/{oid}")
+	public String addDistance(@ModelAttribute WraperInteger wraperDist,@PathVariable("cid") String cid,@PathVariable("oid") String oid,Model model) {
+		int idCity = Integer.parseInt(cid);
+		int idObject = Integer.parseInt(oid);
+		
+		ArrayList <Values> distance = wraperDist.getDistanceToOtherObj();
+		ArrayList<ObjectData> objects = wraperDist.getOtherObjectsInCity();
+
+		for(int i=0;i<distance.size();i++) {
+			System.out.println(i + "  ----  "+  distance.get(i).Int);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return " zapisywanie obiektu";
+	}
+	
+	
 
 }
