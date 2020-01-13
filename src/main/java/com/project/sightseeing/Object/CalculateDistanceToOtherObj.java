@@ -1,23 +1,47 @@
 package com.project.sightseeing.Object;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.project.sightseeing.Route.RouteData;
+import com.project.sightseeing.Route.RouteDataRepository;
+
 public class CalculateDistanceToOtherObj {
 
 	// A utility function to find the vertex with minimum distance value,
 	// from the set of vertices not yet included in shortest path tree
 	static int V = 9;
+	
+	@Autowired
+	RouteDataRepository routeRepo;
+	
+	private int [][] getNeighMatrix() {
+		int len = (int)routeRepo.count();
+		int [][] matrix = new int[len][len];
+		
+		System.out.println("matrix");
+		for(int i = 0; i < len; i++) {
+			for(int j = 0; j < len; j++) {
+				if(j == i) {
+					matrix[j][i]=0;
+				}else {
+				for(RouteData r : routeRepo.findAll()) {
+					
+						matrix[i][j] = r.getDistance();
+						matrix[j][i] = r.getDistance();
+					
+				}
+				}
+			}
+			
+		}
+		System.out.println("matrix - done");
+		return matrix;
+	}
+	
 
 	public CalculateDistanceToOtherObj() {
 
-		int graph[][] = new int[][] { { 0, 4, 0, 0, 0, 0, 0, 8, 0 }, 
-				{ 4, 0, 8, 0, 0, 0, 0, 11, 0},
-				{ 0, 8, 0, 7, 0, 4, 0, 0, 2}, 
-				{ 0, 0, 7, 0, 9, 14, 0, 0, 0},
-				{ 0, 0, 0, 9, 0, 10, 0, 0, 0}, 
-				{ 0, 0, 4, 14, 10, 0, 2, 0, 0},
-				{ 0, 0, 0, 0, 0, 2, 0, 1, 6}, 
-				{ 8, 11, 0, 0, 0, 0, 1, 0, 7}, 
-				{ 0, 0, 2, 0, 0, 0, 6, 7, 0},
- };
+		int graph[][] = getNeighMatrix();
 
 		int graphCorrect[][] = new int[graph.length + 1][graph[0].length + 1];
  

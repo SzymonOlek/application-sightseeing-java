@@ -177,7 +177,9 @@ public class ObjectDataController {
 		for(ObjectData p : objRepo.findAll()) {
 			if(p.getCity_id().equals(idCity)) {
 				arrayDist.addObj(p);
-				arrayDist.addValues(new Values());
+				Values v = new Values();
+				v.setInt(Integer.MAX_VALUE);
+				arrayDist.addValues(v);
 			}
 		}	
 		
@@ -206,7 +208,7 @@ public class ObjectDataController {
 		
 		
 		
-		return " zapisywanie obiektu";
+		return "zapisywanie obiektu";
 	}
 	
 	
