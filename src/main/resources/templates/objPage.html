@@ -62,7 +62,7 @@ max-width: 1200px;
  <span th:if="${photos.empty}">   BRAK ZDJEC  </span>
 <div class="gallery" >
 	<span th:each="photo : ${photos}">
-			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing//img/' + ${photo.photo_path}"/></a>
+			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing/img/' + ${photo.photo_path}"/></a>
 	</span>
 
 </div>

@@ -44,7 +44,7 @@ public class RouteDataController {
 		return toAlg;
 	}
 	
-	private int [][] getNeighMatrix(int [] objects) {
+	public int [][] getNeighMatrix(int [] objects) {
 		int len = objects.length;
 		int [][] matrix = new int[len][len];
 		

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "route")
 public class RouteData {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer route_id;
 	private Integer object_1_id;
 	private Integer object_2_id;
