@@ -56,7 +56,13 @@ private ObjectDataRepository objectRepo;
 	public String selCity(Model model){
 		Values cid = new Values();
 		Integer ccid = new Integer(0);
-		model.addAttribute("cities", cityRepo.findAll());
+		ArrayList<CityData> cit = new ArrayList<CityData>();
+		for(CityData cd : cityRepo.findAll()) {
+			if(cd.getCity_id() != -1) {
+				cit.add(cd);
+			}
+		}
+		model.addAttribute("cities", cit);
 		model.addAttribute("cid", cid);
 		return "citysel";
 	}
