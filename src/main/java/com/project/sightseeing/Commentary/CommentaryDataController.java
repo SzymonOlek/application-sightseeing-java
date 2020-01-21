@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.project.sightseeing.Ban.BanData;
 import com.project.sightseeing.Ban.BanDataRepository;
 import com.project.sightseeing.Object.ObjectData;
+import com.project.sightseeing.Object.ObjectDataRepository;
 import com.project.sightseeing.Route.RouteData;
 import com.project.sightseeing.Sysuser.SysuserData;
 import com.project.sightseeing.Sysuser.SysuserDataRepository;
@@ -33,15 +34,67 @@ public class CommentaryDataController {
 	private BanDataRepository banRepo;
 	@Autowired
 	private SysuserDataRepository userRepo;
+	@Autowired
+	private ObjectDataRepository objRepo;
+	
+	@PostMapping(path = "/rep/{cid}/{oid}/{ring}/{red}")
+	public RedirectView comRep(@PathVariable("cid") String cid, @PathVariable("oid") String oid, @PathVariable("ring") String reporting, @PathVariable("red") String reported) {
+		String path = "http://localhost:9999/sightseeing/object/object/" + oid;
+		int comentId = Integer.parseInt(cid), reportingId = Integer.parseInt(reporting), reportedId = Integer.parseInt(reported), objectId = Integer.parseInt(oid);
+		CommentaryData report = new CommentaryData();
+		String content = new String();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
+		LocalDateTime now = LocalDateTime.now();
+		report.setObject_id(-1);
+		report.setUser_id(reportingId);
+		report.setComment_date(dtf.format(now));
+		report.setCommentary_id((int)comRepo.count() + 1);
+		for(SysuserData cd : userRepo.findAll()) {
+			if(cd.getUser_id() == reportedId) {
+				content = "Użytkownik: " + cd.getLogin() + " w komentarzu do obiektu ";
+			}
+		}
+		for(ObjectData od : objRepo.findAll()) {
+			if(od.getObject_id() == objectId) {
+				content += od.getObject_name() + " napisał:\n";
+			}
+		}
+		for(CommentaryData cd : comRepo.findAll()) {
+			if(cd.getCommentary_id() == comentId) {
+				content += cd.getContents();
+			}
+		}
+		content += "!@#$%";
+		report.setContents(content);
+		comRepo.save(report);
+		return new RedirectView(path);
+	}
+	@PostMapping(path = "/del/{cid}/{oid}/{uid}")
+	public RedirectView comDel(@PathVariable("cid") String cid, @PathVariable("oid") String oid, @PathVariable("uid") String uid) {
+		String path = "http://localhost:9999/sightseeing/object/object/" + oid;
+		int id = Integer.parseInt(cid);
+		for(CommentaryData cd : comRepo.findAll()) {
+			if(cd.getCommentary_id() == id) {
+				comRepo.delete(cd);
+			}
+		}
+		for(SysuserData sd : userRepo.findAll()) {
+			if (sd.getUser_id() == Integer.parseInt(uid)) {
+				sd.setComment_num(sd.getComment_num() - 1);
+				userRepo.save(sd);
+			}
+		}
+		
+		return new RedirectView(path);
+	}
 	
 	@PostMapping(path = "/add/{oid}/{uid}")
-	public RedirectView addCommentary(@PathVariable("oid") String oid, @PathVariable("uid") String uid,@ModelAttribute CommentaryData commentToAdd, Model model) {
+	public RedirectView addCommentary(@PathVariable("oid") String oid, @PathVariable("uid") String uid,@ModelAttribute CommentaryData commentToAdd) {
 		int objId = Integer.parseInt(oid);
 		int usrId = Integer.parseInt(uid);
 		String path = "http://localhost:9999/sightseeing/object/object/" + oid;
 		SysuserData us = ufindById(usrId);
 		us.setComment_num(us.getComment_num() + 1);
-		model.addAttribute("path", path);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
 		LocalDateTime now = LocalDateTime.now();
 		commentToAdd.setCommentary_id((int)comRepo.count() + 1);

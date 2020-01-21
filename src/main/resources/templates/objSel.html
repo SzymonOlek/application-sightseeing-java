@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Atrakcja</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
@@ -12,48 +12,75 @@
     text-align: center;
     }
     </style>
+    <script type="text/javascript">
+    function post(path, method="post"){
+		
+		 const form = document.createElement('form');
+		form.method = method;
+
+		var radio = document.querySelectorAll('input[type=radio]:checked')
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+		var ids = "";
+		for (var i = 0; i < checkboxes.length; i++) {
+			var radio = document.getElementById(checkboxes[i].id + '00').checked;
+			//alert(checkboxes[i].id + radio)
+			if(radio){
+				ids += ("q" + checkboxes[i].id)
+			}
+		}
+		for (var i = 0; i < checkboxes.length; i++) {
+		var radio = document.getElementById(checkboxes[i].id + '00').checked;
+				if(!radio){
+				ids += ("q" + checkboxes[i].id)
+			}
+		}
+		form.action = path + ids;
+		document.body.appendChild(form);
+		form.submit();
+    }
+    </script>
 </head>
 <body>
-	<h1>Wybor obiektu</h1>
-    <form action="#"  th:action="@{/object/sel}"  method="post">
+	<h1>Wybór obiektu</h1>
+    
 
         
 <table>
-    <thead>
+    <thead class="tbl-header">
         <tr>
             <th> Nazwa obiektu </th>
             <th> Adres </th>
+            <td>Punkt trasy</td>
+            <td>Początek trasy</td>
         </tr>
     </thead>
 
-    <tbody >
+    <tbody class="tbl-content">
     <tr th:if="${obiekty.empty}">
             <td colspan="3"> No objects available</td>
         </tr>
         <tr th:each="object : ${obiekty}">
         	<td>
-        		<a th:href="'/sightseeing/object/object/' + ${object.object_id}">
-        			<button type="button">
+        	<form action="#"  th:action="'http://localhost:9999/sightseeing/object/object/' +  ${object.object_id}"  method="get">
+        		<button>
         				<span th:text="${object.object_name}">
         				</span>
-        			</button>
-        		</a>
+        		</button>
+	 		</form>
         	</td>
          	<td>
          		<span th:text=${object.localization}></span>
          	</td>
+         	<td class="check"><input type="checkbox" th:id="${object.object_id}"></input></td>
+         	<td class="check"><input name="begin" type="radio" th:id="${object.object_id}+'00'"></input></td>
         </tr>
     </tbody>
     
 </table>
-    </form>
-    
-    	<a href=http://localhost:9999/sightseeing/city/sel>
-	<button>Powrot</button>
-	</a>
+   
 	<a href=http://localhost:9999/sightseeing>
-	<button>Strona Glowna</button>
+	<button>Powrót</button>
 	</a>
-
+	<button th:onclick="|post('http://localhost:9999/sightseeing/route/find/'+ '${cid}')|">Wyznacz trase</button>
 </body>
 </html>

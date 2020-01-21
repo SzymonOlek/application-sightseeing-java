@@ -14,12 +14,12 @@
     </style>
 </head>
 <body>
-	<h1>Konto</h1>>
- <table th:variable="${user}">
+	<h1>Konto</h1>
+ <table th:variable="${user}" class="acc">
     <thead>
         <tr></tr>
     </thead>
-    <tbody>
+    <tbody class = "tbl-body">
         <tr>
         	<td>Imie</td>
             <td><span th:text="*{user.f_name}"></span></td>

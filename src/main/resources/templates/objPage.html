@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Atrakcja - obiekt</title>
+    <title>Atrakcja</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styleForGallery.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/lightbox.min.css}"/>
@@ -27,22 +26,10 @@
   clear: both;
   display: table;
 }
-.comments, .comm{
-max-width: 1200px;
-  text-align: center;
-  border: 1px solid black;
-}
-
-    .alert{
-    max-width: 30px;
-    max-height: 30px;
-    
-    }
-
     </style>
     
 </head>
-<body th:variable="${obj}">
+<body th:variable="${obj}" >
 	<h1><span th:text="*{obj.object_name}"></span></h1>
  <table>
     <thead>
@@ -53,7 +40,7 @@ max-width: 1200px;
         	<td>Lokalizacja: </td>
         	<td><span th:text="*{obj.localization}"></span></td>
         </tr>
-        <tr>
+        <tr class="head">
         	<td><span th:text="*{obj.description}"></span></td>
         </tr>
     </tbody>
@@ -62,29 +49,25 @@ max-width: 1200px;
  <span th:if="${photos.empty}">   BRAK ZDJEC  </span>
 <div class="gallery" >
 	<span th:each="photo : ${photos}">
-			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing//img/' + ${photo.photo_path}"/></a>
+			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing/img/' + ${photo.photo_path}"/></a>
 	</span>
 
 </div>
-
-<table class="comments">
-	<thead>
-		<tr> <h1> Komentarze: </h1> </tr>
-		<tr>
-			<td>ID uzytkownika</td>
+<table>
+	<thead class="tbl-head">
+		<tr><td>Komentarze:</td></tr>
+		<tr class="head">
+			<td>Nick</td>
 			<td>Tresc</td>
 			<td>Ocena (*/5)</td>
 			<td>Data</td>
 		</tr>
 	</thead>
-	
 	<tbody>
-	
-		<tr th:each="comment : ${coment}">
-		
-            <td class="comm"><span th:text="${comment.user_id}">ID uzytkownika </span></td>
-			<td class="comm"><span th:text="${comment.contents}">Tresc </span></td>
-			<td class="comm">
+		<tr class="com" th:each="comment, id : ${coment}">
+            <td><span th:text="${nicks[id.index]}">Nick </span></td>
+			<td><span class="com" th:text="${comment.contents}">Tresc </span></td>
+			<td>
 				<div th:switch="${comment.rate}">
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).one}">1</span>
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).two}">2</span>
@@ -93,23 +76,12 @@ max-width: 1200px;
      				<span th:case="${T(com.project.sightseeing.Commentary.Rate).five}">5</span>
 				</div>
 			</td>
-			<td class="comm"><span th:text="${comment.comment_date}">Data </span></td>
-			
-			<td><img class="alert" id="alert" src="/sightseeing/img/alert11.png" onclick="this.src='/sightseeing/img/alert.jpg'"></td>
-			
-			
+			<td><span th:text="${comment.comment_date}">Data </span></td>
         </tr>
 		
 	</tbody>
-	
 </table>
-<span th:if="${coment.empty}">   BRAK KOMENTARZY  </span>
-    <a th:href="'http://localhost:9999/sightseeing/city/miasto/' + ${obj.city_id}">
-	<button>Powrót</button>
-	</a>
 <button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
-
-
-
+	<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/city/sel'">Powrót</button>
 </body>
 </html>

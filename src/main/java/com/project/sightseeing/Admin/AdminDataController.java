@@ -50,10 +50,56 @@ public class AdminDataController {
 	@Autowired
 	ObjectDataRepository objRepo;
 	
+	private boolean duplicates(ArrayList<CorThread> th, int id) {
+		for(CorThread cd : th) {
+			if(cd.id == id)
+				return true;
+		}
+		return false;
+	}
+	
+	@GetMapping(path = "/thread/{uid}")
+	public String corespondence(@PathVariable("uid") String uid, Model model) {
+		int userId = Integer.parseInt(uid);
+		ArrayList<CommentaryData> cor = new ArrayList<CommentaryData>();
+		for(CommentaryData cd : commRepo.findAll()) {
+			if(cd.getObject_id() == -1 && cd.getUser_id() == userId) {
+				cor.add(cd);
+			}
+		}
+		model.addAttribute("messages", cor);
+		return "adminMsg";
+	}
+	@GetMapping(path = "/cor")
+	public String corespondenceThreads(Model model) {
+		int corId = -1;
+		ArrayList<CorThread> threads = new ArrayList<CorThread>();
+		for(CommentaryData cd : commRepo.findAll()) {
+				if(cd.getObject_id() == corId && !duplicates(threads, cd.getUser_id())) {
+					threads.add(new CorThread(cd.getUser_id()));
+				}
+		}
+		for(CorThread ct : threads) {
+			for(SysuserData cd : userRepo.findAll()) {
+				if(ct.id == cd.getUser_id()) {
+					ct.nick = cd.getLogin();
+				}
+			}
+		}
+		model.addAttribute("threads", threads);
+		return "adminThreads";
+	}
+	
 	
 	@GetMapping(path = "/obj")
 	public String delObj(Model model) {
-		model.addAttribute("cities",cityRepo.findAll());
+		ArrayList<CityData> cit = new ArrayList<CityData>();
+		for(CityData cd : cityRepo.findAll()) {
+			if(cd.getCity_id() != -1) {
+				cit.add(cd);
+			}
+		}
+		model.addAttribute("cities",cit);
 		return "adminDelObjC";
 	}
 	
@@ -109,7 +155,13 @@ public class AdminDataController {
 	
 	@GetMapping(path = "/city")
 	public String delCity(Model model) {
-		model.addAttribute("cities",cityRepo.findAll());
+		ArrayList<CityData> cit = new ArrayList<CityData>();
+		for(CityData cd : cityRepo.findAll()) {
+			if(cd.getCity_id() != -1) {
+				cit.add(cd);
+			}
+		}
+		model.addAttribute("cities",cit);
 		return "adminDelCity";
 	}
 	

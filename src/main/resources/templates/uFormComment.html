@@ -1,19 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Atrakcja</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    
+	<style type="text/css">
+    	header{
+    	text-align: center;
+   	 }
+    </style>
 </head>
 <body>
 	<h1>Dodawanie Komentarza</h1>
     <form action="#" th:action="'http://localhost:9999/sightseeing/comm/add/' + *{object_id} +'/'+*{user_id}" th:object="${comm}" method="post">
-		<p>Komentarz: </p>
-		
-		<textarea rows="5" cols="50"  th:field="*{contents}"></textarea>
-		
+		<p>Komentarz:</p>
+		<p> <textarea cols="60" rows="6" th:field="*{contents}" ></textarea></p>
         <!--  <label th:field="*{user_id}" th:value="${usrid}" ></label>
 		<label th:field="*{object_id}" th:value="${objid}"></label>-->
 		<label for="rate">Ocena: </label>
@@ -21,7 +22,7 @@
 				<option th:each="ratio : ${T(com.project.sightseeing.Commentary.Rate).values()}"
         			th:value="${ratio}" th:text="${ratio.displayValue}" th:field="*{rate}"></option>
 			</select>
-		<p><button type="submit" >Submit </button> <button  type="reset"  >Reset</button> </p>
+		<p><button type="submit" onclick="alert('Zapisano')">Zapisz</button> <button type="reset">Reset</button></p>
     </form>
 	<a href=http://localhost:9999/sightseeing>
 	<button>Powrót</button>

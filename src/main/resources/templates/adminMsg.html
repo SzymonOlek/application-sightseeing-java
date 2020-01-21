@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<style type="text/css">
+    	header{
+    	text-align: center;
+   	 }
+   	  span.com{
+	white-space: pre-wrap;
+    width:500px;
+    display:block;
+    overflow-wrap:break-word;
+	}
+
+    </style>
+</head>
+<body th:variable="${obj}">
+	<h1>Wiadomości:</h1>
+<table style="width:100%" >
+	<thead>
+		<tr class="head">
+			<td>Treść</td>
+			<td>Data</td>
+			
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr class="com" th:each="msg : ${messages}">
+			<td><span class="com" th:text="${msg.contents}">Treść</span></td>
+			<td><span th:text="${msg.comment_date}">Data</span></td>
+        </tr>
+	</tbody>
+</table>
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/admin/cor'">Powrót</button>
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+</body>
+</html>
