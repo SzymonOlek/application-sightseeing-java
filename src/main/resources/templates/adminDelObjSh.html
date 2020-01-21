@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1>Usuń Obiekt:</h1>
-<form>
+
 <table>
     <thead>
         <tr>
@@ -28,11 +28,11 @@
         </tr>
         <tr th:each="object : ${objs}">
             <td><span th:text="${object.object_name}"> Nazwa obiektu </span></td>
-            <td><button type="submit" th:formaction="'http://localhost:9999/sightseeing/admin/objdelconf/' + ${object.object_id} + '/' + ${object.city_id}">Usuń</button>
+            <td><a th:href="'http://localhost:9999/sightseeing/admin/objdelconf/' + ${object.object_id} + '/' + ${object.city_id}">Usuń</a>
         </tr>
     </tbody>
 </table>
-</form>
+
 
 <a href=http://localhost:9999/sightseeing/admin/del>
 	<button>Powrót</button>

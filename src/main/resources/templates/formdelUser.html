@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1>Użytkownicy</h1>
-<form>
+
 <table>
     <thead>
         <tr>
@@ -36,16 +36,16 @@
 			<td><span th:text="${user.login}"> Login </span></td>
 			<td><span th:text="${user.email}"> Email </span></td>
             <td><span th:text="${user.comment_num}"> Liczba komentarzy </span></td>
-            <td><button type="submit" th:formaction="'http://localhost:9999/sightseeing/admin/delconf/' + ${user.user_id}">Usuń</button>
+            <td><a th:href="'http://localhost:9999/sightseeing/admin/delconf/' + ${user.user_id}">Usuń</a>
         </tr>
     </tbody>
 </table>
-</form>
+
 
 <a href=http://localhost:9999/sightseeing/admin/del>
 	<button>Powrót</button>
 	</a>
-<a href=http://localhost:9999/sightseeing/home>
+<a href=http://localhost:9999/sightseeing>
 	<button>Strona główna</button>
 	</a>
 

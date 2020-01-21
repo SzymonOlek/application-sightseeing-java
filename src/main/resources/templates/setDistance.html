@@ -20,7 +20,7 @@
 
 	<h1>Wprowadz dystans</h1>
 
-	<form action="#" th:action="'/sightseeing/object/setDistance/' +${cid}+ '/' + ${oid} " th:object="${distance}" method="post" autocomplete="off">
+	<form action="#" th:action="@{/object/setDistance/2/16}" th:object="${distance}" method="post" autocomplete="off">
 
 	<table>
 	
@@ -40,16 +40,12 @@
 	 					            
 	</tr>
 	
-	
-	
-	
-	
 	</table>
 
 
+
+
 <button type="submit">submit</button>
-
-
 
 
     </form>

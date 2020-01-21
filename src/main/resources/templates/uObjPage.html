@@ -3,35 +3,22 @@
 <head>
     <title>Atrakcja - obiekt</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styleForGallery.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/lightbox.min.css}"/>
     <script th:src="@{/js/lightbox-plus-jquery.min.js}"></script>
+    <style>
+    .comments, .comm{
+max-width: 1200px;
+  text-align: center;
+  border: 1px solid black;
+}
+    .alert{
+    max-width: 30px;
+    max-height: 30px;
     
-    <style type="text/css">
-    .column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
-    .gallery{
-	margin: 10px 50px;
-	
-	float: left;
-	
-	
-}
-.gallery::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-   	 span.com{
-	white-space: pre-wrap;
-    width:500px;
-    display:block;
-    overflow-wrap:break-word;
-	}
+    }
+    
     </style>
 </head>
 <body th:variable="${obj}">
@@ -45,36 +32,39 @@
         	<td>Lokalizacja: </td>
         	<td><span th:text="*{obj.localization}"></span></td>
         </tr>
-        <tr class="head">
+        <tr>
         	<td><span th:text="*{obj.description}"></span></td>
         </tr>
     </tbody>
 </table>
+
 <h1 class="napis"> Galeria</h1>
  <span th:if="${photos.empty}">   BRAK ZDJEC  </span>
 <div class="gallery" >
 	<span th:each="photo : ${photos}">
-			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing/img/' + ${photo.photo_path}"/></a>
+			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing//img/' + ${photo.photo_path}"/></a>
 	</span>
 
 </div>
-<table>
-	<thead class="tbl-head">
-		<tr><td>Komentarze:</td></tr>
-		<tr class="head">
-			<td>Nick</td>
+
+<table class="comments">
+	<thead>
+		<tr> <h1> Komentarze: </h1> </tr>
+		<tr>
+			<td>ID uzytkownika</td>
 			<td>Tresc</td>
 			<td>Ocena (*/5)</td>
 			<td>Data</td>
-			
 		</tr>
 	</thead>
 	
 	<tbody>
-		<tr class="com" th:each="comment, id : ${coment}">
-            <td><span th:text="${nicks[id.index]}">Nick </span></td>
-			<td><span class="com" th:text="${comment.contents}">Tresc </span></td>
-			<td>
+	
+		<tr th:each="comment : ${coment}">
+		
+            <td class="comm"><span th:text="${comment.user_id}">ID uzytkownika </span></td>
+			<td class="comm"><span th:text="${comment.contents}">Tresc </span></td>
+			<td class="comm">
 				<div th:switch="${comment.rate}">
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).one}">1</span>
     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).two}">2</span>
@@ -83,26 +73,35 @@
      				<span th:case="${T(com.project.sightseeing.Commentary.Rate).five}">5</span>
 				</div>
 			</td>
-			<td><span th:text="${comment.comment_date}">Data </span></td>
-			<td class="col">
-				<div th:switch="${comment.user_id}">
-				<p>
-				<form th:action="'http://localhost:9999/sightseeing/comm/del/' + ${cid[id.index]} + '/' + ${obj.object_id}+'/'+${usrid}"   method="post" onsubmit="return confirm('Na pewno chcesz usunąć ten komentarz?');">
-					<button type="submit" th:case="${usrid}">Usuń komentarz</button>
-				</form>
-				<form th:action="'http://localhost:9999/sightseeing/comm/rep/' + ${cid[id.index]} + '/' + ${obj.object_id}+'/'+${usrid}+'/'+${comment.user_id}"   method="post" onsubmit="return confirm('Na pewno chcesz zgłosić?');">
-					<button type="submit" th:case="*" >Zgłoś komentarz</button>
-				</form>
-				</div>
-			</td>
+			<td class="comm"><span th:text="${comment.comment_date}">Data </span></td>
+			
+					
+			<td><img class="alert" id="alert" src="/sightseeing/img/alert11.png" onclick="this.src='/sightseeing/img/alert.jpg'"></td>
+			
+			
         </tr>
+		
 	</tbody>
+	
 </table>
-<form action="#"  th:action="'http://localhost:9999/sightseeing/comm/uadd/' + ${obj.object_id} +'/'+ ${usrid}"  method="get">
-	<button>Dodaj komentarz</button>
-	<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
-	<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/city/sel'">Powrót</button>
-</form>
+<span th:if="${coment.empty}">   BRAK KOMENTARZY  </span>
+<a th:variable="${usrid}" th:href="'http://localhost:9999/sightseeing/comm/uadd/' + ${obj.object_id} +'/'+ ${usrid}" > <button type="button">Dodaj komentarz</button></a>
+
+    <a th:href="'http://localhost:9999/sightseeing/city/miasto/' + ${obj.city_id}">
+	<button>Powrót</button>
+	</a>
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+
+
+<script type="text/javascript">
+
+        function change() {
+            var img = document.getElementByIdName("alert");
+            img[0].src = "../static/img/alert2.jpg";     
+        }
+        </script>
+
+
 
 </body>
 </html>

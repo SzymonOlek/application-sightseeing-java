@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "photo")
 public class PhotoData {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer photo_id;
 	private Integer object_id;
 	private String photo_path;

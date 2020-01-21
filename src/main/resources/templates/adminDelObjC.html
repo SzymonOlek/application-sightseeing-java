@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1>Wybierz miasto:</h1>
-	<form>
+
 <table>
     <thead>
         <tr>
@@ -28,11 +28,11 @@
         </tr>
         <tr th:each="city : ${cities}">
             <td><span th:text="${city.city_name}"> Nazwa miasta </span></td>
-            <td><button type="submit" th:formaction="'http://localhost:9999/sightseeing/admin/objSh/' + ${city.city_id}">Wybierz</button>
+            <td><a th:href="'http://localhost:9999/sightseeing/admin/objSh/' + ${city.city_id}">Wybierz</a>
         </tr>
     </tbody>
 </table>
-</form>
+
 
 <a href=http://localhost:9999/sightseeing/admin/del>
 	<button>Powrót</button>

@@ -9,10 +9,11 @@
  	font-family: 'Poppins',sans-serif;
 	background: url(bg.jpg);
 	background-size: cover;	 
-	animation: animateBG 60s linear infinite;
+	animation: animateBG 2s linear infinite;
 
 
 }
+
 @keyframes animateBG{
 	0%
 	{
@@ -23,9 +24,6 @@
 	}
 
 
-}
-span{
-	white-space: pre;
 }
 button {
 cursor:  pointer;

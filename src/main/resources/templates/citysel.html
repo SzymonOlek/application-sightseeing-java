@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Atrakcja</title>
+    <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    
+   
 
 <style type="text/css">
     header{
@@ -17,14 +17,15 @@
     
 </head>
 <body>
+
 	<h1>Wybor miasta</h1>
-    <form action="#" th:with="var=${cid}" method="get">
+    <form action="#"  th:action="@{/city/sel}" th:with="var=${cid}" method="post">
 
         
 <table>
     <thead>
         <tr>
-            <th> Nazwa miasta </th>
+            <th> Nazwa obiektu </th>
             <th> Ilosc obiektów </th>
         </tr>
     </thead>
@@ -34,10 +35,11 @@
             <td colspan="3"> No cities availlable</td>
         </tr>
         <tr th:each="city : ${cities}">
-        <td><button type="submit" th:formaction="'/sightseeing/city/miasto/' + ${city.city_id}"><span th:text="${city.city_name}">  </span></button></td>
+        <td><a th:href="'/sightseeing/city/miasto/' + ${city.city_id}">
+        <button type="button" th:value="${city.city_name}" th:text="${city.city_name}"></button></a></td>
       
             
-            <td><span th:text="${city.obj_quan}"> Ilosc obiektów </span></td>
+            <td><span th:text="${city.obj_quan}">  </span></td>
         </tr>
     </tbody>
     

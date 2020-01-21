@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Atrakcja</title>
+    <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1>Wybierz miasto:</h1>
-<form>
+
 <table>
     <thead>
         <tr>
@@ -28,16 +28,16 @@
         </tr>
         <tr th:each="city : ${cities}">
             <td><span th:text="${city.city_name}"> Nazwa miasta </span></td>
-            <td><button th:formaction="'http://localhost:9999/sightseeing/object/add/' + ${city.city_id}">Wybierz</button>
+            <td><a th:href="'http://localhost:9999/sightseeing/object/add/' + ${city.city_id}">Wybierz</a>
         </tr>
     </tbody>
 </table>
-</form>
+
 
 <a href=http://localhost:9999/sightseeing/admin/add>
 	<button>Powrót</button>
 	</a>
-<a href=http://localhost:9999/sightseeing/home>
+<a href=http://localhost:9999/sightseeing>
 	<button>Strona główna</button>
 	</a>
 
