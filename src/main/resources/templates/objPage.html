@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleForGallery.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/lightbox.min.css}"/>
+    <script th:src="@{/js/lightbox-plus-jquery.min.js}"></script>
+    
+    <style type="text/css">
+    .column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+    .gallery{
+	margin: 10px 50px;
+	
+	float: left;
+	
+	
+}
+.gallery::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+    </style>
+    
+</head>
+<body th:variable="${obj}" >
+	<h1><span th:text="*{obj.object_name}"></span></h1>
+ <table>
+    <thead>
+        <tr></tr>
+    </thead>
+    <tbody>
+        <tr>
+        	<td>Lokalizacja: </td>
+        	<td><span th:text="*{obj.localization}"></span></td>
+        </tr>
+        <tr class="head">
+        	<td><span th:text="*{obj.description}"></span></td>
+        </tr>
+    </tbody>
+</table>
+<h1 class="napis"> Galeria</h1>
+ <span th:if="${photos.empty}">   BRAK ZDJEC  </span>
+<div class="gallery" >
+	<span th:each="photo : ${photos}">
+			<a th:href="'/sightseeing/img/' + ${photo.photo_path}" data-lightbox="mygallery" data-title="Zdjecia"><img th:src="'/sightseeing/img/' + ${photo.photo_path}"/></a>
+	</span>
+
+</div>
+<table>
+	<thead class="tbl-head">
+		<tr><td>Komentarze:</td></tr>
+		<tr class="head">
+			<td>Nick</td>
+			<td>Tresc</td>
+			<td>Ocena (*/5)</td>
+			<td>Data</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="com" th:each="comment, id : ${coment}">
+            <td><span th:text="${nicks[id.index]}">Nick </span></td>
+			<td><span class="com" th:text="${comment.contents}">Tresc </span></td>
+			<td>
+				<div th:switch="${comment.rate}">
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).one}">1</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).two}">2</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).three}">3</span>
+    				<span th:case="${T(com.project.sightseeing.Commentary.Rate).four}">4</span>
+     				<span th:case="${T(com.project.sightseeing.Commentary.Rate).five}">5</span>
+				</div>
+			</td>
+			<td><span th:text="${comment.comment_date}">Data </span></td>
+        </tr>
+		
+	</tbody>
+</table>
+<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+	<button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/city/sel'">Powrót</button>
+</body>
+</html>

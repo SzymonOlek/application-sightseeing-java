@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+    
+    
+</head>
+<body>
+	<h1>Wiadomości</h1>
+    <form action="#" method="get">
+
+        
+<table>
+    <thead>
+        <tr>
+            <th>od</th>
+        </tr>
+    </thead>
+
+    <tbody >
+        <tr th:each="thread : ${threads}">
+        	<td><button type="submit" th:formaction="'thread/' + ${thread.id}"><span th:text="${thread.nick}"></span></button>
+        	</td>
+        </tr>
+    </tbody>
+    
+</table>
+    </form>
+	<a href=http://localhost:9999/sightseeing/home>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>

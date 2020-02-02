@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Atrakcja</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Dodawanie Obiektów</h1>
+    <form action="#" th:action="'http://localhost:9999/sightseeing/object/add/' + ${cid}" th:object="${object}" method="post">
+    	<p>Nazwa: <input type="text" th:field="*{object_name}" /></p>
+        <p>Lokalizacja: <input type="text" th:field="*{localization}" /></p>
+		<p>Opis: <textarea rows="5" cols="60" th:field="*{description}"></textarea></p>
+
+		<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+	
+	<a href=http://localhost:9999/sightseeing>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>

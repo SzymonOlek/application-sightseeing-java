@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+    
+    
+</head>
+<body>
+
+	<h1>Wprowadz dystans</h1>
+
+	<form action="#" th:action="'/sightseeing/object/setDistance/' +${cid}+ '/' + ${oid} " th:object="${distance}" method="post" autocomplete="off">
+
+	<table>
+	
+	    <thead>
+        <tr>
+            <th> Nazwa obiektu </th>
+            <th> Odleglosc </th>
+
+        </tr>
+    </thead>
+	
+	<tr th:each="object,itemStat : *{otherObjectsInCity}">
+	
+	<td th:text="*{otherObjectsInCity[__${itemStat.index}__].object_name}">Nazwa obiektu</td>    
+				
+	<td><input type="number" th:field="*{distanceToOtherObj[__${itemStat.index}__].Int}"/></td>
+	 					            
+	</tr>
+	
+	
+	
+	
+	
+	</table>
+
+
+<button type="submit">submit</button>
+
+
+
+
+    </form>
+	<a href=http://localhost:9999/sightseeing>
+	<button>Powrót</button>
+	</a>
+</body>
+</html>

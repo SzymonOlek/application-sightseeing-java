@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+    <style>
+    
+        
+
+    header{
+    text-align: center;
+    }
+    .formularz{
+    float: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 200px;
+    }
+    button[type=reset]{
+    margin-left: 45px;
+    
+    }
+    .mainPage{
+    
+    margin-top: 200px;
+    margin-left: 55px;
+    }
+    .login{
+    padding-right: 20px;
+    margin: 20px;
+    margin-left: 25px;
+
+    
+    }
+    .psw{
+    margin: 20px;
+    margin-left: 25px;
+    
+    }
+    }
+
+    
+    </style>
+    
+    
+</head>
+<body>
+
+
+	<header><h1>Zaloguj sie</h1></header>
+	<div class="formularz">
+    <form action="#" th:action="@{/home/login}" th:object="${user}" method="post" autocomplete="off">
+    	
+    	
+  <div class="form__group field">
+  <input type="text" th:field="*{login}" class="form__field" placeholder="Login" name="name" id='name' required />
+
+</div>
+
+
+ <div class="form__group field">
+  <input type="password" th:field="*{passwd}" class="form__field" placeholder="Haslo" name="name" id='name' required />
+</div>
+
+   
+        <p><button type="submit" value="Submit">Submit</button> <button type="reset" value="Reset">Reset</button></p>
+        <div class="mainPage"><button type="button" onclick = "window.location.href = 'http://localhost:9999/sightseeing/home'">Strona główna</button>
+    </div></form>
+    </div>
+</body>
+</html>

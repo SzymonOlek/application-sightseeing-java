@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    
+
+<style type="text/css">
+    header{
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+	<h1>Użytkownicy</h1>
+<form>
+<table>
+    <thead>
+        <tr>
+            <th> Imie </th>
+            <th> Nazwisko </th>
+			<th> Login </th>
+            <th> Email </th>
+            <th> Liczba komentarzy </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+            <td colspan="5"> No users added </td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.f_name}"> Imie </span></td>
+            <td><span th:text="${user.l_name}"> Nazwisko </span></td>
+			<td><span th:text="${user.login}"> Login </span></td>
+			<td><span th:text="${user.email}"> Email </span></td>
+            <td><span th:text="${user.comment_num}"> Liczba komentarzy </span></td>
+            <td><button type="submit" th:formaction="'http://localhost:9999/sightseeing/admin/delconf/' + ${user.user_id}">Usuń</button>
+        </tr>
+    </tbody>
+</table>
+</form>
+
+<a href=http://localhost:9999/sightseeing/admin/del>
+	<button>Powrót</button>
+	</a>
+<a href=http://localhost:9999/sightseeing/home>
+	<button>Strona główna</button>
+	</a>
+
+
+</body>
+</html>
